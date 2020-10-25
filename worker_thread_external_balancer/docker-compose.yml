@@ -1,0 +1,23 @@
+version: '2.4'
+services:
+  server:
+    build:
+      context: ./server
+    environment:
+      NODE_ENV: production
+    restart: always
+    ports:
+      - "8001:8001"
+      - "8002:8002"
+      - "8003:8003"
+      - "8004:8004"
+    cpus: '4'
+  haproxy:
+    build:
+      context: ./haproxy
+    depends_on:
+      - server
+    ports:
+      - "80:80"
+    restart: always
+    cpus: '1'
